@@ -22,7 +22,7 @@
                         </form>
                     </div>
                     <h3>Mesages</h3>
-                    <ul class="messages-list">
+                    <ul class="messages-list navbar-nav">
                     
                     </ul>
                     <form class="chartForm" action="#" method="POST">

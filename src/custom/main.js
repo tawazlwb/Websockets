@@ -15,7 +15,7 @@ $(document).ready(function(){
         };
         if(typeof message != "undefined" || message != ""){
             conn.send(JSON.stringify(message));
-            messageList.prepend('<li>' + message.text + '</li>');
+            messageList.prepend('<li class="nav-item"><span class="badge badge-success">' + this.text + '</span></li>');
             messageInputField.val("");
         }    
     });
@@ -37,7 +37,12 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data){
                 $.each(data, function(){
-                    messageList.prepend('<li>' + this.text + '</li>');
+                    if(this.sender == Cookies.get('chat_name')){
+                        messageList.prepend('<li class="nav-item"><span class="badge badge-success">' + this.text + '</span></li>');
+                    }
+                    else{
+                        messageList.prepend('<li class="nav-item"><span class="badge badge-secondary">' + this.text + '</span></li>');
+                    }
                 })
             }
         });
@@ -54,6 +59,6 @@ $(document).ready(function(){
 
     conn.onmessage = function(e) {
         console.log(e.data);
-        messageList.prepend('<li>' + e.data + '</li>');
+        messageList.prepend('<li class="nav-item"><span class="badge badge-secondary">' + e.data + '</span></li>');
     };
 });
