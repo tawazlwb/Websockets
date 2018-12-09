@@ -8,10 +8,14 @@ $(document).ready(function(){
 
     chartForm.on('submit', function(e){
         e.preventDefault();
-        var message =  messageInputField.val();
+        var message = {
+            text: messageInputField.val(),
+            sender: Cookies.get('chat_name'),
+            type: 'message'
+        };
         if(typeof message != "undefined" || message != ""){
-            conn.send(message);
-            messageList.prepend('<li>' + message + '</li>');
+            conn.send(JSON.stringify(message));
+            messageList.prepend('<li>' + message.text + '</li>');
             messageInputField.val("");
         }    
     });

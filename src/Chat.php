@@ -23,15 +23,25 @@ class Chat implements MessageComponentInterface {
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
         */
 
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                $client->send($msg);
-            }
+        $msg = json_decode($msg);
+        switch ($msg->type) {
+            case 'message':
+                foreach ($this->clients as $client) {
+                    if ($from !== $client) {
+                        $client->send($msg->text);
+                    }
+                }
+        
+                Message::create([
+                    'text' => $msg->text,
+                    'sender' => $msg->sender
+                ]);
+                break;
+            
+            default:
+                # code...
+                break;
         }
-
-        Message::create([
-            'text' => $msg
-        ]);
     }
 
     public function onClose(ConnectionInterface $conn) {
