@@ -9,13 +9,25 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <h2>PHP and Jquery Chat Application</h2>
+                    <h3>Messages for <span class="username badge badge-primary"></span></h3>
+                    <div class="row">
+                        <form action="#" class="username-setter" method="POST">
+                            <div class="form-group">
+                                <label for="messsage">Set username</label>
+                                <input type="text" name="name" class="form-control username-input" value=""></input>
+                            </div>
+                            <div class="">
+                                <button type="submitbutton" name="button" class="btn btn-primary pull-right" >Set</button>
+                            </div>
+                        </form>
+                    </div>
                     <h3>Mesages</h3>
                     <ul class="messages-list">
                     
                     </ul>
                     <form class="chartForm" action="#" method="POST">
                         <div class="form-group">
-                            <label for="messsage">message</label>
+                            <label for="messsage">Message</label>
                             <textarea type="button" id="message" name="message" class="form-control" value=""></textarea>
                         </div>
                         <div class="">

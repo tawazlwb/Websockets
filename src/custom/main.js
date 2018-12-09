@@ -2,7 +2,9 @@ $(document).ready(function(){
     var conn = new WebSocket('ws://localhost:8888');
     var chartForm = $('.chartForm'),
         messageInputField = chartForm.find('#message'),
-        messageList = $('.messages-list');
+        messageList = $('.messages-list'),
+        usernameForm = $('.username-setter'),
+        usernameInput = usernameForm.find('.username-input');
 
     chartForm.on('submit', function(e){
         e.preventDefault();
@@ -12,6 +14,16 @@ $(document).ready(function(){
             messageList.prepend('<li>' + message + '</li>');
             messageInputField.val("");
         }    
+    });
+
+    usernameForm.on('submit', function(e){
+        e.preventDefault();
+        var chatName =  usernameInput.val();
+        if(chatName.length > 0){
+            Cookies.set('chat_name', chatName);
+            $('.username').text(chatName);
+            usernameInput.val("");
+        }
     });
     
     conn.onopen = function(e) {
@@ -25,6 +37,15 @@ $(document).ready(function(){
                 })
             }
         });
+
+        var chatName = Cookies.get('chat_name');
+        if(!chatName){
+            var timestamp = (new Date()).getTime();
+            chatName = 'anonymous' + timestamp;
+            Cookies.set('chat_name', chatName);
+        }
+
+        $('.username').text(chatName);
     };
 
     conn.onmessage = function(e) {
